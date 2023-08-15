@@ -1,6 +1,13 @@
+import os
 import folder_paths
 import comfy.sd
 import hashlib
+from datetime import datetime
+from PIL import Image
+from PIL.PngImagePlugin import PngInfo
+import numpy as np
+import json
+from nodes import MAX_RESOLUTION
 
 
 def parse_name(ckpt_name):
@@ -22,55 +29,105 @@ def calculate_sha256(file_path):
     return sha256_hash.hexdigest()
 
 
-class CheckpointLoaderWithInfo:
+def handle_whitespace(string: str):
+    return string.strip().replace("\n", " ").replace("\r", " ").replace("\t", " ")
+
+
+def get_timestamp(time_format="%Y-%m-%d-%H%M%S"):
+    now = datetime.now()
+    try:
+        timestamp = now.strftime(time_format)
+    except:
+        timestamp = now.strftime("%Y-%m-%d-%H%M%S")
+
+    return timestamp
+
+
+def make_filename(filename="ComfyUI", seed={"seed":0}, modelname="sd", counter=0, time_format="%Y-%m-%d-%H%M%S"):
+    timestamp = get_timestamp(time_format)
+
+    # parse input string
+    filename = filename.replace("%time", timestamp)
+    filename = filename.replace("%model", modelname)
+    filename = filename.replace("%seed", str(seed['seed']))
+    filename = filename.replace("%counter", str(counter))
+
+    if filename == "":
+        filename = timestamp
+    return filename
+
+
+class CheckpointSelector:
     CATEGORY = 'ImageSaverTools'
-    RETURN_TYPES = ("MODEL", "CLIP", "VAE","STRING", "STRING",)
-    RETURN_NAMES = ("model", "clip", "vae", "name", "sha256sum",)
-    FUNCTION = "load_models"
+    RETURN_TYPES = (folder_paths.get_filename_list("checkpoints"),)
+    RETURN_NAMES = ("ckpt_name",)
+    FUNCTION = "get_names"
 
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {"ckpt_name": (folder_paths.get_filename_list("checkpoints"), ),}}
 
-    def load_models(self, ckpt_name):
-        ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
-        sha256sum = calculate_sha256(ckpt_path)
-        name = parse_name(ckpt_name)
-        out = comfy.sd.load_checkpoint_guess_config(ckpt_path, output_vae=True, output_clip=True, embedding_directory=folder_paths.get_folder_paths("embeddings"))
+    def get_names(self, ckpt_name):
+        return (ckpt_name,)
 
-        new_out = list(out)
-        new_out.pop()
-        new_out.append(name)
-        new_out.append(sha256sum)
 
-        return tuple(new_out)
+class SamplerSelector:
+    CATEGORY = 'ImageSaverTools'
+    RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS,)
+    RETURN_NAMES = ("sampler_name",)
+    FUNCTION = "get_names"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"sampler_name": (comfy.samplers.KSampler.SAMPLERS,)}}
+
+    def get_names(self, sampler_name):
+        return (sampler_name,)
+
+
+class SchedulerSelector:
+    CATEGORY = 'ImageSaverTools'
+    RETURN_TYPES = (comfy.samplers.KSampler.SCHEDULERS,)
+    RETURN_NAMES = ("scheduler",)
+    FUNCTION = "get_names"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"scheduler": (comfy.samplers.KSampler.SCHEDULERS,)}}
+
+    def get_names(self, scheduler):
+        return (scheduler,)
 
 
 class ImageSaveWithMetadata:
     def __init__(self):
-        # get default output directory
         self.output_dir = folder_paths.output_directory
 
     @classmethod
-    def INPUT_TYPES(s):
+    def INPUT_TYPES(cls):
         return {
                     "required": {
                         "images": ("IMAGE", ),
                         "filename": ("STRING", {"default": f'%time_%seed', "multiline": False}),
                         "path": ("STRING", {"default": '', "multiline": False}),
-                        "extension": (['png', 'jpeg', 'tiff', 'gif'], ),
-                        "quality": ("INT", {"default": 100, "min": 1, "max": 100, "step": 1}),
+                        "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
+                        "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0}),
+                        "modelname": (folder_paths.get_filename_list("checkpoints"),),
+                        "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
+                        "scheduler": (comfy.samplers.KSampler.SCHEDULERS,),
                     },
                     "optional": {
-                        "positive": ("STRING",{"default": '', "multiline": True}),
-                        "negative": ("STRING",{"default": '', "multiline": True}),
+                        "positive": ("STRING", {"default": 'unknown', "multiline": True}),
+                        "negative": ("STRING", {"default": 'unknown', "multiline": True}),
                         "seed": ("SEED",),
-                        "modelname": ("STRING",{"default": '', "multiline": False}),
-                        "counter": ("INT",{"default": 0, "min": 0, "max": 0xffffffffffffffff }),
+                        "width": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
+                        "height": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
+                        "counter": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff }),
                         "time_format": ("STRING", {"default": "%Y-%m-%d-%H%M%S", "multiline": False}),
                     },
                     "hidden": {
-                        "prompt": "PROMPT", "extra_pnginfo": "EXTRA_PNGINFO"
+                        "prompt": "PROMPT",
+                        "extra_pnginfo": "EXTRA_PNGINFO"
                     },
                 }
 
@@ -79,35 +136,28 @@ class ImageSaveWithMetadata:
 
     OUTPUT_NODE = True
 
-    CATEGORY = "WLSH Nodes/IO"
+    CATEGORY = "ImageSaverTools"
 
-    def save_files(self, images, positive="unknown", negative="unknown", seed={"seed": 0}, modelname="sd", counter=0, filename='', path="",
-    time_format="%Y-%m-%d-%H%M%S", extension='png', quality=100, prompt=None, extra_pnginfo=None):
+    def save_files(self, images, steps, cfg, sampler_name, scheduler, positive, negative, modelname, width, height,
+                   seed={"seed": 0}, counter=0, filename='', path="", time_format="%Y-%m-%d-%H%M%S", prompt=None, extra_pnginfo=None):
         filename = make_filename(filename, seed, modelname, counter, time_format)
-        comment = "Positive Prompt:\n" + positive + "\nNegative Prompt:\n" + negative + "\nModel: " + modelname + "\nSeed: " + str(seed['seed'])
-        output_path = os.path.join(self.output_dir,path)
-        
-        # create missing paths - from WAS Node Suite
+        ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
+        basemodelname = parse_name(modelname)
+        modelhash = calculate_sha256(ckpt_path)[:10]
+        comment = f"{handle_whitespace(positive)}\nNegative Prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}, CFG Scale: {cfg}, Seed: {seed['seed']}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI, Scheduler: {scheduler}"
+        output_path = os.path.join(self.output_dir, path)
+
         if output_path.strip() != '':
             if not os.path.exists(output_path.strip()):
                 print(f'The path `{output_path.strip()}` specified doesn\'t exist! Creating directory.')
                 os.makedirs(output_path, exist_ok=True)    
-                
-        paths = self.save_images(images, output_path,filename,comment, extension, quality, prompt, extra_pnginfo)
-        
-        return { "ui": { "images": paths } }
 
-    def save_images(self, images, output_path, filename_prefix="ComfyUI", comment="", extension='png', quality=100, prompt=None, extra_pnginfo=None):
-        def map_filename(filename):
-            prefix_len = len(filename_prefix)
-            prefix = filename[:prefix_len + 1]
-            try:
-                digits = int(filename[prefix_len + 1:].split('_')[0])
-            except:
-                digits = 0
-            return (digits, prefix)
-        
-        imgCount = 1
+        paths = self.save_images(images, output_path, filename, comment, prompt, extra_pnginfo)
+
+        return {"ui": {"images": paths}}
+
+    def save_images(self, images, output_path, filename_prefix="ComfyUI", comment="", prompt=None, extra_pnginfo=None):
+        img_count = 1
         paths = list()
         for image in images:
             i = 255. * image.cpu().numpy()
@@ -116,29 +166,25 @@ class ImageSaveWithMetadata:
             
             if prompt is not None:
                 metadata.add_text("prompt", json.dumps(prompt))
+                metadata.add_text("parameters", comment)
             if extra_pnginfo is not None:
                 for x in extra_pnginfo:
                     metadata.add_text(x, json.dumps(extra_pnginfo[x]))
 
-            if(images.size()[0] > 1):
-                filename_prefix += "_{:02d}".format(imgCount)
+            if images.size()[0] > 1:
+                filename_prefix += "_{:02d}".format(img_count)
 
-            file = f"{filename_prefix}.{extension}"
-            if extension == 'png':
-                img.save(os.path.join(output_path, file), comment=comment, pnginfo=metadata, optimize=True)
-            elif extension == 'webp':
-                img.save(os.path.join(output_path, file), quality=quality)
-            elif extension == 'jpeg':
-                img.save(os.path.join(output_path, file), quality=quality, comment=comment, optimize=True)
-            elif extension == 'tiff':
-                img.save(os.path.join(output_path, file), quality=quality, optimize=True)
-            else:
-                img.save(os.path.join(output_path, file))
+            file = f"{filename_prefix}.png"
+            img.save(os.path.join(output_path, file), pnginfo=metadata, optimize=True)
+
             paths.append(file)
-            imgCount += 1
-        return(paths)
+            img_count += 1
+        return paths
 
 
 NODE_CLASS_MAPPINGS = {
-    "Load Checkpoint w/Info": CheckpointLoaderWithInfo,
+    "Checkpoint Selector": CheckpointSelector,
+    "Save Image w/Metadata": ImageSaveWithMetadata,
+    "Sampler Selector": SamplerSelector,
+    "Scheduler Selector": SchedulerSelector,
 }
