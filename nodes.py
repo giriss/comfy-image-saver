@@ -2,7 +2,9 @@ import os
 import hashlib
 from datetime import datetime
 import json
-from PIL import Image
+import piexif
+import piexif.helper
+from PIL import Image, ExifTags
 from PIL.PngImagePlugin import PngInfo
 import numpy as np
 import folder_paths
@@ -33,7 +35,7 @@ def handle_whitespace(string: str):
     return string.strip().replace("\n", " ").replace("\r", " ").replace("\t", " ")
 
 
-def get_timestamp(time_format="%Y-%m-%d-%H%M%S"):
+def get_timestamp(time_format):
     now = datetime.now()
     try:
         timestamp = now.strftime(time_format)
@@ -171,30 +173,33 @@ class ImageSaveWithMetadata:
     @classmethod
     def INPUT_TYPES(cls):
         return {
-                    "required": {
-                        "images": ("IMAGE", ),
-                        "filename": ("STRING", {"default": f'%time_%seed', "multiline": False}),
-                        "path": ("STRING", {"default": '', "multiline": False}),
-                        "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
-                        "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0}),
-                        "modelname": (folder_paths.get_filename_list("checkpoints"),),
-                        "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
-                        "scheduler": (comfy.samplers.KSampler.SCHEDULERS,),
-                    },
-                    "optional": {
-                        "positive": ("STRING", {"default": 'unknown', "multiline": True}),
-                        "negative": ("STRING", {"default": 'unknown', "multiline": True}),
-                        "seed_value": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
-                        "width": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
-                        "height": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
-                        "counter": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff }),
-                        "time_format": ("STRING", {"default": "%Y-%m-%d-%H%M%S", "multiline": False}),
-                    },
-                    "hidden": {
-                        "prompt": "PROMPT",
-                        "extra_pnginfo": "EXTRA_PNGINFO"
-                    },
-                }
+            "required": {
+                "images": ("IMAGE", ),
+                "filename": ("STRING", {"default": f'%time_%seed', "multiline": False}),
+                "path": ("STRING", {"default": '', "multiline": False}),
+                "extension": (['png', 'jpeg', 'webp'],),
+                "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
+                "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0}),
+                "modelname": (folder_paths.get_filename_list("checkpoints"),),
+                "sampler_name": (comfy.samplers.KSampler.SAMPLERS,),
+                "scheduler": (comfy.samplers.KSampler.SCHEDULERS,),
+            },
+            "optional": {
+                "positive": ("STRING", {"default": 'unknown', "multiline": True}),
+                "negative": ("STRING", {"default": 'unknown', "multiline": True}),
+                "seed_value": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "width": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
+                "height": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
+                "lossless_webp": ("BOOLEAN", {"default": True}),
+                "quality_jpeg_or_webp": ("INT", {"default": 100, "min": 1, "max": 100}),
+                "counter": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff }),
+                "time_format": ("STRING", {"default": "%Y-%m-%d-%H%M%S", "multiline": False}),
+            },
+            "hidden": {
+                "prompt": "PROMPT",
+                "extra_pnginfo": "EXTRA_PNGINFO"
+            },
+        }
 
     RETURN_TYPES = ()
     FUNCTION = "save_files"
@@ -203,8 +208,8 @@ class ImageSaveWithMetadata:
 
     CATEGORY = "ImageSaverTools"
 
-    def save_files(self, images, seed_value, steps, cfg, sampler_name, scheduler, positive, negative, modelname,
-                   width, height, counter, filename, path, time_format, prompt=None, extra_pnginfo=None):
+    def save_files(self, images, seed_value, steps, cfg, sampler_name, scheduler, positive, negative, modelname, quality_jpeg_or_webp,
+                   lossless_webp, width, height, counter, filename, path, extension, time_format, prompt=None, extra_pnginfo=None):
         filename = make_filename(filename, seed_value, modelname, counter, time_format)
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
         basemodelname = parse_name(modelname)
@@ -217,30 +222,40 @@ class ImageSaveWithMetadata:
                 print(f'The path `{output_path.strip()}` specified doesn\'t exist! Creating directory.')
                 os.makedirs(output_path, exist_ok=True)    
 
-        paths = self.save_images(images, output_path, filename, comment, prompt, extra_pnginfo)
+        paths = self.save_images(images, output_path, filename, comment, extension, quality_jpeg_or_webp, lossless_webp, prompt, extra_pnginfo)
 
         return {"ui": {"images": paths}}
 
-    def save_images(self, images, output_path, filename_prefix="ComfyUI", comment="", prompt=None, extra_pnginfo=None):
+    def save_images(self, images, output_path, filename_prefix, comment, extension, quality_jpeg_or_webp, lossless_webp, prompt=None, extra_pnginfo=None):
         img_count = 1
         paths = list()
         for image in images:
             i = 255. * image.cpu().numpy()
             img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
-            metadata = PngInfo()
-            
-            if prompt is not None:
-                metadata.add_text("prompt", json.dumps(prompt))
-                metadata.add_text("parameters", comment)
-            if extra_pnginfo is not None:
-                for x in extra_pnginfo:
-                    metadata.add_text(x, json.dumps(extra_pnginfo[x]))
-
             if images.size()[0] > 1:
                 filename_prefix += "_{:02d}".format(img_count)
 
-            file = f"{filename_prefix}.png"
-            img.save(os.path.join(output_path, file), pnginfo=metadata, optimize=True)
+            if extension == 'png':
+                metadata = PngInfo()
+                metadata.add_text("parameters", comment)
+
+                if prompt is not None:
+                    metadata.add_text("prompt", json.dumps(prompt))
+                if extra_pnginfo is not None:
+                    for x in extra_pnginfo:
+                        metadata.add_text(x, json.dumps(extra_pnginfo[x]))
+
+                file = os.path.join(output_path, f"{filename_prefix}.png")
+                img.save(file, pnginfo=metadata, optimize=True)
+            else:
+                file = os.path.join(output_path, f"{filename_prefix}.{extension}")
+                img.save(file, optimize=True, quality=quality_jpeg_or_webp, lossless=lossless_webp)
+                exif_bytes = piexif.dump({
+                    "Exif": {
+                        piexif.ExifIFD.UserComment: piexif.helper.UserComment.dump(comment, encoding="unicode")
+                    },
+                })
+                piexif.insert(exif_bytes, file)
 
             paths.append(file)
             img_count += 1
