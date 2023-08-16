@@ -1,12 +1,12 @@
 import os
-import folder_paths
-import comfy.sd
 import hashlib
 from datetime import datetime
+import json
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 import numpy as np
-import json
+import folder_paths
+import comfy.sd
 from nodes import MAX_RESOLUTION
 
 
@@ -43,13 +43,13 @@ def get_timestamp(time_format="%Y-%m-%d-%H%M%S"):
     return timestamp
 
 
-def make_filename(filename="ComfyUI", seed={"seed":0}, modelname="sd", counter=0, time_format="%Y-%m-%d-%H%M%S"):
+def make_filename(filename, seed, modelname, counter, time_format):
     timestamp = get_timestamp(time_format)
 
     # parse input string
     filename = filename.replace("%time", timestamp)
     filename = filename.replace("%model", modelname)
-    filename = filename.replace("%seed", str(seed['seed']))
+    filename = filename.replace("%seed", str(seed))
     filename = filename.replace("%counter", str(counter))
 
     if filename == "":
@@ -57,8 +57,73 @@ def make_filename(filename="ComfyUI", seed={"seed":0}, modelname="sd", counter=0
     return filename
 
 
+class SeedGenerator:
+    RETURN_TYPES = ("INT",)
+    FUNCTION = "get_seed"
+    CATEGORY = "ImageSaverTools/utils"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff})}}
+
+    def get_seed(self, seed):
+        return (seed,)
+
+
+class StringLiteral:
+    RETURN_TYPES = ("STRING",)
+    FUNCTION = "get_string"
+    CATEGORY = "ImageSaverTools/utils"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"string": ("STRING", {"default": "", "multiline": True})}}
+
+    def get_string(self, string):
+        return (string,)
+
+
+class SizeLiteral:
+    RETURN_TYPES = ("INT",)
+    FUNCTION = "get_int"
+    CATEGORY = "ImageSaverTools/utils"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"int": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8})}}
+
+    def get_int(self, int):
+        return (int,)
+
+
+class IntLiteral:
+    RETURN_TYPES = ("INT",)
+    FUNCTION = "get_int"
+    CATEGORY = "ImageSaverTools/utils"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"int": ("INT", {"default": 0, "min": 0, "max": 1000000})}}
+
+    def get_int(self, int):
+        return (int,)
+
+
+class CfgLiteral:
+    RETURN_TYPES = ("FLOAT",)
+    FUNCTION = "get_float"
+    CATEGORY = "ImageSaverTools/utils"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"float": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0})}}
+
+    def get_float(self, float):
+        return (float,)
+
+
 class CheckpointSelector:
-    CATEGORY = 'ImageSaverTools'
+    CATEGORY = 'ImageSaverTools/utils'
     RETURN_TYPES = (folder_paths.get_filename_list("checkpoints"),)
     RETURN_NAMES = ("ckpt_name",)
     FUNCTION = "get_names"
@@ -72,7 +137,7 @@ class CheckpointSelector:
 
 
 class SamplerSelector:
-    CATEGORY = 'ImageSaverTools'
+    CATEGORY = 'ImageSaverTools/utils'
     RETURN_TYPES = (comfy.samplers.KSampler.SAMPLERS,)
     RETURN_NAMES = ("sampler_name",)
     FUNCTION = "get_names"
@@ -86,7 +151,7 @@ class SamplerSelector:
 
 
 class SchedulerSelector:
-    CATEGORY = 'ImageSaverTools'
+    CATEGORY = 'ImageSaverTools/utils'
     RETURN_TYPES = (comfy.samplers.KSampler.SCHEDULERS,)
     RETURN_NAMES = ("scheduler",)
     FUNCTION = "get_names"
@@ -119,7 +184,7 @@ class ImageSaveWithMetadata:
                     "optional": {
                         "positive": ("STRING", {"default": 'unknown', "multiline": True}),
                         "negative": ("STRING", {"default": 'unknown', "multiline": True}),
-                        "seed": ("SEED",),
+                        "seed_value": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
                         "width": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
                         "height": ("INT", {"default": 512, "min": 1, "max": MAX_RESOLUTION, "step": 8}),
                         "counter": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff }),
@@ -138,13 +203,13 @@ class ImageSaveWithMetadata:
 
     CATEGORY = "ImageSaverTools"
 
-    def save_files(self, images, steps, cfg, sampler_name, scheduler, positive, negative, modelname, width, height,
-                   seed={"seed": 0}, counter=0, filename='', path="", time_format="%Y-%m-%d-%H%M%S", prompt=None, extra_pnginfo=None):
-        filename = make_filename(filename, seed, modelname, counter, time_format)
+    def save_files(self, images, seed_value, steps, cfg, sampler_name, scheduler, positive, negative, modelname,
+                   width, height, counter, filename, path, time_format, prompt=None, extra_pnginfo=None):
+        filename = make_filename(filename, seed_value, modelname, counter, time_format)
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
         basemodelname = parse_name(modelname)
         modelhash = calculate_sha256(ckpt_path)[:10]
-        comment = f"{handle_whitespace(positive)}\nNegative Prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}, CFG Scale: {cfg}, Seed: {seed['seed']}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI, Scheduler: {scheduler}"
+        comment = f"{handle_whitespace(positive)}\nNegative Prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}, CFG Scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI, Scheduler: {scheduler}"
         output_path = os.path.join(self.output_dir, path)
 
         if output_path.strip() != '':
@@ -187,4 +252,9 @@ NODE_CLASS_MAPPINGS = {
     "Save Image w/Metadata": ImageSaveWithMetadata,
     "Sampler Selector": SamplerSelector,
     "Scheduler Selector": SchedulerSelector,
+    "Seed Generator": SeedGenerator,
+    "String Literal": StringLiteral,
+    "Width/Height Literal": SizeLiteral,
+    "Cfg Literal": CfgLiteral,
+    "Int Literal": IntLiteral,
 }
