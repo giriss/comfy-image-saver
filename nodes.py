@@ -214,7 +214,7 @@ class ImageSaveWithMetadata:
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
         basemodelname = parse_name(modelname)
         modelhash = calculate_sha256(ckpt_path)[:10]
-        comment = f"{handle_whitespace(positive)}\nNegative Prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}, CFG Scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI, Scheduler: {scheduler}"
+        comment = f"{handle_whitespace(positive)}\nNegative prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}{f'_{scheduler}' if scheduler != 'normal' else ''}, CFG Scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI"
         output_path = os.path.join(self.output_dir, path)
 
         if output_path.strip() != '':
