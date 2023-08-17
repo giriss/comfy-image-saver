@@ -1,80 +1,7 @@
 {
   "last_node_id": 40,
-  "last_link_id": 47,
+  "last_link_id": 48,
   "nodes": [
-    {
-      "id": 10,
-      "type": "UpscaleModelLoader",
-      "pos": [
-        1075,
-        53
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "UPSCALE_MODEL",
-          "type": "UPSCALE_MODEL",
-          "links": [
-            10
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "UpscaleModelLoader"
-      },
-      "widgets_values": [
-        "4xLSDIR.pth"
-      ]
-    },
-    {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": [
-        1209,
-        188
-      ],
-      "size": {
-        "0": 210,
-        "1": 46
-      },
-      "flags": {},
-      "order": 16,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 8
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            11,
-            13
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      }
-    },
     {
       "id": 28,
       "type": "Sampler Selector",
@@ -89,7 +16,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 2,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -143,7 +70,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 3,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -178,7 +105,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 4,
+      "order": 2,
       "mode": 0,
       "outputs": [
         {
@@ -210,7 +137,7 @@
         "1": 262
       },
       "flags": {},
-      "order": 15,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -349,7 +276,7 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        370838204695031,
+        72524088949694,
         "randomize",
         20,
         7,
@@ -372,7 +299,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 5,
+      "order": 3,
       "mode": 0,
       "outputs": [
         {
@@ -413,7 +340,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 14,
+      "order": 13,
       "mode": 0,
       "inputs": [
         {
@@ -468,7 +395,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 13,
+      "order": 12,
       "mode": 0,
       "inputs": [
         {
@@ -510,72 +437,6 @@
       ]
     },
     {
-      "id": 13,
-      "type": "PreviewImage",
-      "pos": [
-        1450,
-        189
-      ],
-      "size": {
-        "0": 209.93911743164062,
-        "1": 246
-      },
-      "flags": {},
-      "order": 18,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 13
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
-      "id": 11,
-      "type": "ImageUpscaleWithModel",
-      "pos": [
-        1449,
-        53
-      ],
-      "size": {
-        "0": 226.8000030517578,
-        "1": 46
-      },
-      "flags": {},
-      "order": 17,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "upscale_model",
-          "type": "UPSCALE_MODEL",
-          "link": 10
-        },
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 11
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            37
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ImageUpscaleWithModel"
-      }
-    },
-    {
       "id": 17,
       "type": "Seed Generator",
       "pos": [
@@ -589,7 +450,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 10,
+      "order": 4,
       "mode": 0,
       "outputs": [
         {
@@ -607,29 +468,342 @@
         "Node name for S&R": "Seed Generator"
       },
       "widgets_values": [
-        501435046813232,
+        479566252427468,
         "randomize"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        164,
+        478
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "epicrealism_pureEvolutionV5.safetensors",
+          "link": 28,
+          "widget": {
+            "name": "ckpt_name",
+            "config": [
+              [
+                "epicrealism_pureEvolutionV5.safetensors"
+              ]
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            3,
+            5
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            8
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "epicrealism_pureEvolutionV5.safetensors"
+      ]
+    },
+    {
+      "id": 22,
+      "type": "String Literal",
+      "pos": [
+        79,
+        295
+      ],
+      "size": {
+        "0": 400.109375,
+        "1": 108.55078125
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            17,
+            45
+          ],
+          "shape": 3
+        }
+      ],
+      "title": "Negative",
+      "properties": {
+        "Node name for S&R": "String Literal"
+      },
+      "widgets_values": [
+        "(worst quality, low quality, illustration, 3d, 2d), open mouth, tooth,ugly face, old face, abnormal hands, watermark, abnormal fingers, extra limbs, ugly eyes, ugly face,"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 19,
+      "type": "String Literal",
+      "pos": [
+        79,
+        53
+      ],
+      "size": {
+        "0": 400,
+        "1": 200
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            16,
+            44
+          ],
+          "shape": 3
+        }
+      ],
+      "title": "Positive",
+      "properties": {
+        "Node name for S&R": "String Literal"
+      },
+      "widgets_values": [
+        "masterpiece,best quality, renaissance style  girl,dark Silver Long waves hair,Bare shoulder,beautiful Bollywood actresse, light skin,DayGlo green translucent saree sari, perty, beauty face, . realistic, perspective, light and shadow, religious or mythological themes, highly detailed, a beautiful painting of the pinnacles, domes and towers of the ancient mayan jungle city, with the night sky with stars above, intricate, elegant, highly detailed, digital painting, artstation, concept art, by krenz cushart and artem demura and alphonse mucha, (colorful) by james jean and by artgerm, by ross tran, ultradetailed, charachter design, concept art, trending on artstation"
+      ],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        650,
+        446
+      ],
+      "size": {
+        "0": 210,
+        "1": 78
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 18,
+          "widget": {
+            "name": "width",
+            "config": [
+              "INT",
+              {
+                "default": 512,
+                "min": 64,
+                "max": 8192,
+                "step": 8
+              }
+            ]
+          },
+          "slot_index": 0
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 19,
+          "widget": {
+            "name": "height",
+            "config": [
+              "INT",
+              {
+                "default": 512,
+                "min": 64,
+                "max": 8192,
+                "step": 8
+              }
+            ]
+          },
+          "slot_index": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        768,
+        1
+      ]
+    },
+    {
+      "id": 27,
+      "type": "Width/Height Literal",
+      "pos": [
+        506,
+        406
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            18,
+            46
+          ],
+          "shape": 3
+        }
+      ],
+      "title": "Width",
+      "properties": {
+        "Node name for S&R": "Width/Height Literal"
+      },
+      "widgets_values": [
+        768
+      ]
+    },
+    {
+      "id": 26,
+      "type": "Width/Height Literal",
+      "pos": [
+        506,
+        488
+      ],
+      "size": {
+        "0": 315,
+        "1": 58
+      },
+      "flags": {
+        "collapsed": true
+      },
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            19,
+            47
+          ],
+          "shape": 3
+        }
+      ],
+      "title": "Height",
+      "properties": {
+        "Node name for S&R": "Width/Height Literal"
+      },
+      "widgets_values": [
+        1152
+      ]
+    },
+    {
+      "id": 35,
+      "type": "Checkpoint Selector",
+      "pos": [
+        499,
+        -155
+      ],
+      "size": [
+        382.49933725757705,
+        58
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "ckpt_name",
+          "type": [
+            "epicrealism_pureEvolutionV5.safetensors"
+          ],
+          "links": [
+            28,
+            40
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Checkpoint Selector"
+      },
+      "widgets_values": [
+        "epicrealism_pureEvolutionV5.safetensors"
       ]
     },
     {
       "id": 39,
       "type": "Save Image w/Metadata",
       "pos": [
-        1752,
-        53
+        1222,
+        -154
       ],
-      "size": {
-        "0": 400,
-        "1": 486
-      },
+      "size": [
+        349.01775559535145,
+        646.6896077006018
+      ],
       "flags": {},
-      "order": 19,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 37
+          "link": 48
         },
         {
           "name": "steps",
@@ -840,317 +1014,44 @@
       ]
     },
     {
-      "id": 22,
-      "type": "String Literal",
+      "id": 8,
+      "type": "VAEDecode",
       "pos": [
-        54,
-        224
-      ],
-      "size": {
-        "0": 400,
-        "1": 200
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            17,
-            45
-          ],
-          "shape": 3
-        }
-      ],
-      "title": "Negative",
-      "properties": {
-        "Node name for S&R": "String Literal"
-      },
-      "widgets_values": [
-        "lowres, text, error, cropped, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, watermark, signature, multiple people, 2 or more people, more than 1 person"
-      ],
-      "color": "#233",
-      "bgcolor": "#355"
-    },
-    {
-      "id": 19,
-      "type": "String Literal",
-      "pos": [
-        54,
-        -22
-      ],
-      "size": {
-        "0": 400,
-        "1": 200
-      },
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            16,
-            44
-          ],
-          "shape": 3
-        }
-      ],
-      "title": "Positive",
-      "properties": {
-        "Node name for S&R": "String Literal"
-      },
-      "widgets_values": [
-        "Sexy blonde girl wandering alone, Lost in thought, scenic advanced alien mega city, seeking solace, wearing sexy deep pink bra, Finding peace within | centered | stunning visual | intricate | highly detailed| breathtaking beauty| precise lineart| vibrant| comprehensive cinematic| anna dittman, full perfect body, dynamic pose, best quality, 8k, clean focus, carne griffths, beautiful lighting, 1 person, close up portrait, hyperrealistic, hyperrealism, full body view, necklace, daylight"
-      ],
-      "color": "#233",
-      "bgcolor": "#355"
-    },
-    {
-      "id": 4,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        164,
-        478
-      ],
-      "size": {
-        "0": 315,
-        "1": 98
-      },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 11,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "ckpt_name",
-          "type": "epicrealism_pureEvolutionV5.safetensors",
-          "link": 28,
-          "widget": {
-            "name": "ckpt_name",
-            "config": [
-              [
-                "epicrealism_pureEvolutionV5.safetensors"
-              ]
-            ]
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            1
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            3,
-            5
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            8
-          ],
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "epicrealism_pureEvolutionV5.safetensors"
-      ]
-    },
-    {
-      "id": 35,
-      "type": "Checkpoint Selector",
-      "pos": [
-        -321,
-        345
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "ckpt_name",
-          "type": [
-            "epicrealism_pureEvolutionV5.safetensors"
-          ],
-          "links": [
-            28,
-            40
-          ],
-          "shape": 3,
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "Checkpoint Selector"
-      },
-      "widgets_values": [
-        "epicrealism_pureEvolutionV5.safetensors"
-      ]
-    },
-    {
-      "id": 5,
-      "type": "EmptyLatentImage",
-      "pos": [
-        650,
-        446
+        971,
+        -153
       ],
       "size": {
         "0": 210,
-        "1": 78
+        "1": 46
       },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 12,
+      "flags": {},
+      "order": 15,
       "mode": 0,
       "inputs": [
         {
-          "name": "width",
-          "type": "INT",
-          "link": 18,
-          "widget": {
-            "name": "width",
-            "config": [
-              "INT",
-              {
-                "default": 512,
-                "min": 64,
-                "max": 8192,
-                "step": 8
-              }
-            ]
-          },
-          "slot_index": 0
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7
         },
         {
-          "name": "height",
-          "type": "INT",
-          "link": 19,
-          "widget": {
-            "name": "height",
-            "config": [
-              "INT",
-              {
-                "default": 512,
-                "min": 64,
-                "max": 8192,
-                "step": 8
-              }
-            ]
-          },
-          "slot_index": 1
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
         }
       ],
       "outputs": [
         {
-          "name": "LATENT",
-          "type": "LATENT",
+          "name": "IMAGE",
+          "type": "IMAGE",
           "links": [
-            2
+            48
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "EmptyLatentImage"
-      },
-      "widgets_values": [
-        512,
-        768,
-        1
-      ]
-    },
-    {
-      "id": 26,
-      "type": "Width/Height Literal",
-      "pos": [
-        506,
-        488
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "INT",
-          "type": "INT",
-          "links": [
-            19,
-            47
-          ],
-          "shape": 3
-        }
-      ],
-      "title": "Height",
-      "properties": {
-        "Node name for S&R": "Width/Height Literal"
-      },
-      "widgets_values": [
-        768
-      ]
-    },
-    {
-      "id": 27,
-      "type": "Width/Height Literal",
-      "pos": [
-        506,
-        406
-      ],
-      "size": {
-        "0": 315,
-        "1": 58
-      },
-      "flags": {
-        "collapsed": true
-      },
-      "order": 9,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "INT",
-          "type": "INT",
-          "links": [
-            18,
-            46
-          ],
-          "shape": 3
-        }
-      ],
-      "title": "Width",
-      "properties": {
-        "Node name for S&R": "Width/Height Literal"
-      },
-      "widgets_values": [
-        512
-      ]
+        "Node name for S&R": "VAEDecode"
+      }
     }
   ],
   "links": [
@@ -1217,30 +1118,6 @@
       8,
       1,
       "VAE"
-    ],
-    [
-      10,
-      10,
-      0,
-      11,
-      0,
-      "UPSCALE_MODEL"
-    ],
-    [
-      11,
-      8,
-      0,
-      11,
-      1,
-      "IMAGE"
-    ],
-    [
-      13,
-      8,
-      0,
-      13,
-      0,
-      "IMAGE"
     ],
     [
       15,
@@ -1323,14 +1200,6 @@
       "epicrealism_pureEvolutionV5.safetensors"
     ],
     [
-      37,
-      11,
-      0,
-      39,
-      0,
-      "IMAGE"
-    ],
-    [
       38,
       29,
       0,
@@ -1409,6 +1278,14 @@
       39,
       10,
       "INT"
+    ],
+    [
+      48,
+      8,
+      0,
+      39,
+      0,
+      "IMAGE"
     ]
   ],
   "groups": [],
