@@ -8,6 +8,12 @@ You can find the example workflow file named `example-workflow.json`.
 
 ## How to install?
 
+### Method 1: Easiest (Recommended)
+If you have *ComfyUI-Manager*, you can simply search "**Save Image with Generation Metadata**" and install these custom nodes 🎉
+
+
+### Method 2: Easy
+If you don't have *ComfyUI-Manager*, then:
 - Using CLI, go to the ComfyUI folder
 - `cd custom_nodes`
 - `git clone git@github.com:giriss/comfy-image-saver.git`
