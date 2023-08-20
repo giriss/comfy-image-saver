@@ -45,18 +45,19 @@ def get_timestamp(time_format):
     return timestamp
 
 
-def make_filename(filename, seed, modelname, counter, time_format):
-    timestamp = get_timestamp(time_format)
-
-    # parse input string
-    filename = filename.replace("%time", timestamp)
+def make_pathname(filename, seed, modelname, counter, time_format):
+    filename = filename.replace("%date", get_timestamp("%Y-%m-%d"))
+    filename = filename.replace("%time", get_timestamp(time_format))
     filename = filename.replace("%model", modelname)
     filename = filename.replace("%seed", str(seed))
     filename = filename.replace("%counter", str(counter))
-
-    if filename == "":
-        filename = timestamp
     return filename
+
+
+def make_filename(filename, seed, modelname, counter, time_format):
+    filename = make_pathname(filename, seed, modelname, counter, time_format)
+
+    return get_timestamp(time_format) if filename == "" else filename
 
 
 class SeedGenerator:
@@ -211,6 +212,7 @@ class ImageSaveWithMetadata:
     def save_files(self, images, seed_value, steps, cfg, sampler_name, scheduler, positive, negative, modelname, quality_jpeg_or_webp,
                    lossless_webp, width, height, counter, filename, path, extension, time_format, prompt=None, extra_pnginfo=None):
         filename = make_filename(filename, seed_value, modelname, counter, time_format)
+        path = make_pathname(path, seed_value, modelname, counter, time_format)
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
         basemodelname = parse_name(modelname)
         modelhash = calculate_sha256(ckpt_path)[:10]
