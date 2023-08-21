@@ -45,17 +45,17 @@ def get_timestamp(time_format):
     return timestamp
 
 
-def make_pathname(filename, seed, modelname, counter, time_format):
+def make_pathname(filename, seed, modelname, counter, pad_counter, time_format):
     filename = filename.replace("%date", get_timestamp("%Y-%m-%d"))
     filename = filename.replace("%time", get_timestamp(time_format))
     filename = filename.replace("%model", modelname)
     filename = filename.replace("%seed", str(seed))
-    filename = filename.replace("%counter", str(counter))
+    filename = filename.replace("%counter", str(counter).rjust(pad_counter, "0"))
     return filename
 
 
-def make_filename(filename, seed, modelname, counter, time_format):
-    filename = make_pathname(filename, seed, modelname, counter, time_format)
+def make_filename(filename, seed, modelname, counter, pad_counter, time_format):
+    filename = make_pathname(filename, seed, modelname, counter, pad_counter, time_format)
 
     return get_timestamp(time_format) if filename == "" else filename
 
@@ -194,6 +194,7 @@ class ImageSaveWithMetadata:
                 "lossless_webp": ("BOOLEAN", {"default": True}),
                 "quality_jpeg_or_webp": ("INT", {"default": 100, "min": 1, "max": 100}),
                 "counter": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff }),
+                "pad_counter": ("INT", {"default": 5, "min": 0, "max": 200 }),
                 "time_format": ("STRING", {"default": "%Y-%m-%d-%H%M%S", "multiline": False}),
             },
             "hidden": {
@@ -210,9 +211,9 @@ class ImageSaveWithMetadata:
     CATEGORY = "ImageSaverTools"
 
     def save_files(self, images, seed_value, steps, cfg, sampler_name, scheduler, positive, negative, modelname, quality_jpeg_or_webp,
-                   lossless_webp, width, height, counter, filename, path, extension, time_format, prompt=None, extra_pnginfo=None):
-        filename = make_filename(filename, seed_value, modelname, counter, time_format)
-        path = make_pathname(path, seed_value, modelname, counter, time_format)
+                   lossless_webp, width, height, counter, pad_counter, filename, path, extension, time_format, prompt=None, extra_pnginfo=None):
+        filename = make_filename(filename, seed_value, modelname, counter, pad_counter, time_format)
+        path = make_pathname(path, seed_value, modelname, counter, pad_counter, time_format)
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
         basemodelname = parse_name(modelname)
         modelhash = calculate_sha256(ckpt_path)[:10]
