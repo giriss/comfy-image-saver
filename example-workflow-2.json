@@ -1,0 +1,3291 @@
+{
+  "last_node_id": 160,
+  "last_link_id": 331,
+  "nodes": [
+    {
+      "id": 94,
+      "type": "Reroute",
+      "pos": [
+        955,
+        -413
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 189
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "LATENT",
+          "links": [
+            190
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 90,
+      "type": "Reroute",
+      "pos": [
+        952,
+        -540
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 214
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CONDITIONING",
+          "links": [
+            180
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 88,
+      "type": "Reroute",
+      "pos": [
+        957,
+        -474
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 173,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CONDITIONING",
+          "links": [
+            174
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 67,
+      "type": "Reroute",
+      "pos": [
+        957,
+        -369
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 102
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            103
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 69,
+      "type": "Reroute",
+      "pos": [
+        961,
+        -317
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 113
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            193
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 71,
+      "type": "Reroute",
+      "pos": [
+        958,
+        -250
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 123
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "FLOAT",
+          "links": [
+            194
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        339,
+        -769
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 150
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 210,
+          "widget": {
+            "name": "text",
+            "config": [
+              "STRING",
+              {
+                "multiline": true
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            214
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        " 1girl :d ^_^ alternate_hairstyle blunt_bangs bow bowtie chair chopsticks closed_eyes collared_shirt demon_girl demon_horns eating food halo high-waist_skirt holding holding_chopsticks horns long_hair long_sleeves looking_at_viewer omelet ponytail red_bow red_bowtie red_hair school_uniform shirt sidelocks simple_background skirt smile solo table tamagoyaki two-tone_background white_shirt"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        328,
+        -485
+      ],
+      "size": {
+        "0": 268.79998779296875,
+        "1": 54
+      },
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 151
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 49,
+          "widget": {
+            "name": "text",
+            "config": [
+              "STRING",
+              {
+                "multiline": true
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            173
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "CLIP Text Encode (Prompt) (nega)",
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "text, watermark"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        -404,
+        -367
+      ],
+      "size": {
+        "0": 315,
+        "1": 106
+      },
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "link": 329,
+          "widget": {
+            "name": "width",
+            "config": [
+              "INT",
+              {
+                "default": 512,
+                "min": 64,
+                "max": 8192,
+                "step": 8
+              }
+            ]
+          }
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "link": 330,
+          "widget": {
+            "name": "height",
+            "config": [
+              "INT",
+              {
+                "default": 512,
+                "min": 64,
+                "max": 8192,
+                "step": 8
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            189
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        512,
+        768,
+        1
+      ]
+    },
+    {
+      "id": 128,
+      "type": "Checkpoint To String",
+      "pos": [
+        249.43630342634353,
+        1327.4456781099097
+      ],
+      "size": {
+        "0": 236.8000030517578,
+        "1": 159.81488037109375
+      },
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "animeNaturalLanguage_v10_20230819.safetensors,divineanimemix_1_20230817.safetensors,nebulaeAnimeStyle_v20.safetensors,sd_xl_base_1.0_20230819.safetensors",
+          "link": 258,
+          "widget": {
+            "name": "ckpt_name",
+            "config": [
+              [
+                "animeNaturalLanguage_v10_20230819.safetensors",
+                "divineanimemix_1_20230817.safetensors",
+                "nebulaeAnimeStyle_v20.safetensors",
+                "sd_xl_base_1.0_20230819.safetensors"
+              ]
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_name(string)",
+          "type": "STRING",
+          "links": [
+            275
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "model_hash(string)",
+          "type": "STRING",
+          "links": [
+            261
+          ],
+          "shape": 3,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Checkpoint To String"
+      },
+      "widgets_values": [
+        "animeNaturalLanguage_v10_20230819.safetensors"
+      ]
+    },
+    {
+      "id": 146,
+      "type": "JWIntegerToString",
+      "pos": [
+        250.12519746931233,
+        1035.2091374299775
+      ],
+      "size": {
+        "0": 468.8876037597656,
+        "1": 58
+      },
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "link": 292,
+          "widget": {
+            "name": "value",
+            "config": [
+              "INT",
+              {
+                "default": 0,
+                "min": -100000000000000000,
+                "max": 100000000000000000
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            293
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Integer to String(Seed)",
+      "properties": {
+        "Node name for S&R": "JWIntegerToString"
+      },
+      "widgets_values": [
+        0,
+        "Seed: {:d}"
+      ]
+    },
+    {
+      "id": 154,
+      "type": "JWFloatToString",
+      "pos": [
+        251.12519746931233,
+        930.2091374299812
+      ],
+      "size": {
+        "0": 465.1983642578125,
+        "1": 58
+      },
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "link": 306,
+          "widget": {
+            "name": "value",
+            "config": [
+              "FLOAT",
+              {
+                "default": 0,
+                "min": -100000000000000000,
+                "max": 100000000000000000
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            307
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Float to String(CFG Scale)",
+      "properties": {
+        "Node name for S&R": "JWFloatToString"
+      },
+      "widgets_values": [
+        0,
+        "CFG Scale: {:.1g}"
+      ]
+    },
+    {
+      "id": 125,
+      "type": "Make Filename String",
+      "pos": [
+        1313,
+        387
+      ],
+      "size": {
+        "0": 312.3999938964844,
+        "1": 126
+      },
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "modelname",
+          "type": "animeNaturalLanguage_v10_20230819.safetensors,divineanimemix_1_20230817.safetensors,nebulaeAnimeStyle_v20.safetensors,sd_xl_base_1.0_20230819.safetensors",
+          "link": 252,
+          "widget": {
+            "name": "modelname",
+            "config": [
+              [
+                "animeNaturalLanguage_v10_20230819.safetensors",
+                "divineanimemix_1_20230817.safetensors",
+                "nebulaeAnimeStyle_v20.safetensors",
+                "sd_xl_base_1.0_20230819.safetensors"
+              ]
+            ]
+          },
+          "slot_index": 0
+        },
+        {
+          "name": "seed_value",
+          "type": "INT",
+          "link": 254,
+          "widget": {
+            "name": "seed_value",
+            "config": [
+              "INT",
+              {
+                "default": 0,
+                "min": 0,
+                "max": 18446744073709552000
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "formatted_filename(string)",
+          "type": "STRING",
+          "links": [
+            255
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Make Filename String"
+      },
+      "widgets_values": [
+        "%time_%seed",
+        0,
+        "animeNaturalLanguage_v10_20230819.safetensors",
+        0,
+        "%Y-%m-%d-%H%M%S"
+      ]
+    },
+    {
+      "id": 134,
+      "type": "Sampler To String",
+      "pos": [
+        251,
+        823
+      ],
+      "size": {
+        "0": 238.05780029296875,
+        "1": 58
+      },
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "sampler_name",
+          "type": "euler,euler_ancestral,heun,dpm_2,dpm_2_ancestral,lms,dpm_fast,dpm_adaptive,dpmpp_2s_ancestral,dpmpp_sde,dpmpp_sde_gpu,dpmpp_2m,dpmpp_2m_sde,dpmpp_2m_sde_gpu,dpmpp_3m_sde,dpmpp_3m_sde_gpu,ddim,uni_pc,uni_pc_bh2",
+          "link": 313,
+          "widget": {
+            "name": "sampler_name",
+            "config": [
+              [
+                "euler",
+                "euler_ancestral",
+                "heun",
+                "dpm_2",
+                "dpm_2_ancestral",
+                "lms",
+                "dpm_fast",
+                "dpm_adaptive",
+                "dpmpp_2s_ancestral",
+                "dpmpp_sde",
+                "dpmpp_sde_gpu",
+                "dpmpp_2m",
+                "dpmpp_2m_sde",
+                "dpmpp_2m_sde_gpu",
+                "dpmpp_3m_sde",
+                "dpmpp_3m_sde_gpu",
+                "ddim",
+                "uni_pc",
+                "uni_pc_bh2"
+              ]
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "sampler(string)",
+          "type": "STRING",
+          "links": [
+            269
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Sampler To String"
+      },
+      "widgets_values": [
+        "ddim"
+      ]
+    },
+    {
+      "id": 143,
+      "type": "JWStringConcat",
+      "pos": [
+        984,
+        876
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 286,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 307,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            288
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 151,
+      "type": "JWStringConcat",
+      "pos": [
+        503,
+        1140
+      ],
+      "size": {
+        "0": 210,
+        "1": 139.5356903076172
+      },
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 300,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 301,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            303
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 150,
+      "type": "JWIntegerToString",
+      "pos": [
+        251.59221452863866,
+        1228.6909691713108
+      ],
+      "size": {
+        "0": 252,
+        "1": 58
+      },
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "link": 299,
+          "widget": {
+            "name": "value",
+            "config": [
+              "INT",
+              {
+                "default": 0,
+                "min": -100000000000000000,
+                "max": 100000000000000000
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            301
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Integer to String(Size:height)",
+      "properties": {
+        "Node name for S&R": "JWIntegerToString"
+      },
+      "widgets_values": [
+        0,
+        "x{:d}"
+      ]
+    },
+    {
+      "id": 149,
+      "type": "JWIntegerToString",
+      "pos": [
+        250.87926897199813,
+        1133.5205983827368
+      ],
+      "size": {
+        "0": 243.60000610351562,
+        "1": 58
+      },
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "link": 298,
+          "widget": {
+            "name": "value",
+            "config": [
+              "INT",
+              {
+                "default": 0,
+                "min": -100000000000000000,
+                "max": 100000000000000000
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            300
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Integer to String(Size:width)",
+      "properties": {
+        "Node name for S&R": "JWIntegerToString"
+      },
+      "widgets_values": [
+        0,
+        "Size: {:d}"
+      ]
+    },
+    {
+      "id": 159,
+      "type": "JWString",
+      "pos": [
+        251,
+        1539
+      ],
+      "size": {
+        "0": 466.208740234375,
+        "1": 58
+      },
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            321
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWString"
+      },
+      "widgets_values": [
+        "Version: ComfyUI"
+      ]
+    },
+    {
+      "id": 136,
+      "type": "JWStringConcat",
+      "pos": [
+        745,
+        759
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 317,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            272
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 142,
+      "type": "JWStringConcat",
+      "pos": [
+        744,
+        874
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 285,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            286
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 144,
+      "type": "JWStringConcat",
+      "pos": [
+        745,
+        990
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 288,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            294
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 148,
+      "type": "JWStringConcat",
+      "pos": [
+        750,
+        1103
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 296,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            302
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 153,
+      "type": "JWStringConcat",
+      "pos": [
+        750,
+        1212
+      ],
+      "size": {
+        "0": 210,
+        "1": 123.8741683959961
+      },
+      "flags": {},
+      "order": 45,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 304,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            305
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 139,
+      "type": "JWStringConcat",
+      "pos": [
+        748,
+        1383
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 47,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 291,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            278
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 157,
+      "type": "JWStringConcat",
+      "pos": [
+        748,
+        1497
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 49,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 314,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            320
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ", "
+      ]
+    },
+    {
+      "id": 131,
+      "type": "JWIntegerToString",
+      "pos": [
+        251,
+        721
+      ],
+      "size": {
+        "0": 462.5067138671875,
+        "1": 58
+      },
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "INT",
+          "link": 265,
+          "widget": {
+            "name": "value",
+            "config": [
+              "INT",
+              {
+                "default": 0,
+                "min": -100000000000000000,
+                "max": 100000000000000000
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            317
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Integer to String(Steps)",
+      "properties": {
+        "Node name for S&R": "JWIntegerToString"
+      },
+      "widgets_values": [
+        0,
+        "Steps: {:d}"
+      ]
+    },
+    {
+      "id": 135,
+      "type": "JWStringConcat",
+      "pos": [
+        504,
+        826
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 269,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            284
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "Sampler: ",
+        ""
+      ]
+    },
+    {
+      "id": 138,
+      "type": "JWStringConcat",
+      "pos": [
+        511,
+        1429
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 275,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            279
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "Model: ",
+        ""
+      ]
+    },
+    {
+      "id": 129,
+      "type": "JWStringConcat",
+      "pos": [
+        509,
+        1321
+      ],
+      "size": {
+        "0": 210,
+        "1": 58
+      },
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 261,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            290
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "Model hash: ",
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "pos": [
+        1115,
+        -472
+      ],
+      "size": {
+        "0": 210,
+        "1": 220.83291625976562
+      },
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 327
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 180
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 174
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 190
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "link": 103,
+          "widget": {
+            "name": "seed",
+            "config": [
+              "INT",
+              {
+                "default": 0,
+                "min": 0,
+                "max": 18446744073709552000
+              }
+            ]
+          }
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "link": 193,
+          "widget": {
+            "name": "steps",
+            "config": [
+              "INT",
+              {
+                "default": 20,
+                "min": 1,
+                "max": 10000
+              }
+            ]
+          }
+        },
+        {
+          "name": "sampler_name",
+          "type": "euler,euler_ancestral,heun,dpm_2,dpm_2_ancestral,lms,dpm_fast,dpm_adaptive,dpmpp_2s_ancestral,dpmpp_sde,dpmpp_sde_gpu,dpmpp_2m,dpmpp_2m_sde,dpmpp_2m_sde_gpu,dpmpp_3m_sde,dpmpp_3m_sde_gpu,ddim,uni_pc,uni_pc_bh2",
+          "link": 205,
+          "widget": {
+            "name": "sampler_name",
+            "config": [
+              [
+                "euler",
+                "euler_ancestral",
+                "heun",
+                "dpm_2",
+                "dpm_2_ancestral",
+                "lms",
+                "dpm_fast",
+                "dpm_adaptive",
+                "dpmpp_2s_ancestral",
+                "dpmpp_sde",
+                "dpmpp_sde_gpu",
+                "dpmpp_2m",
+                "dpmpp_2m_sde",
+                "dpmpp_2m_sde_gpu",
+                "dpmpp_3m_sde",
+                "dpmpp_3m_sde_gpu",
+                "ddim",
+                "uni_pc",
+                "uni_pc_bh2"
+              ]
+            ]
+          },
+          "slot_index": 6
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "link": 194,
+          "widget": {
+            "name": "cfg",
+            "config": [
+              "FLOAT",
+              {
+                "default": 8,
+                "min": 0,
+                "max": 100
+              }
+            ]
+          }
+        },
+        {
+          "name": "scheduler",
+          "type": "normal,karras,exponential,sgm_uniform,simple,ddim_uniform",
+          "link": 202,
+          "widget": {
+            "name": "scheduler",
+            "config": [
+              [
+                "normal",
+                "karras",
+                "exponential",
+                "sgm_uniform",
+                "simple",
+                "ddim_uniform"
+              ]
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            324
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        488467816694958,
+        "randomize",
+        20,
+        8,
+        "ddim",
+        "ddim_uniform",
+        1
+      ]
+    },
+    {
+      "id": 33,
+      "type": "Reroute",
+      "pos": [
+        141,
+        -662
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 326,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CLIP",
+          "links": [
+            150,
+            151
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 126,
+      "type": "Checkpoint Selector",
+      "pos": [
+        -1396,
+        -1063
+      ],
+      "size": {
+        "0": 294.0518493652344,
+        "1": 58
+      },
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "ckpt_name",
+          "type": [
+            "animeNaturalLanguage_v10_20230819.safetensors",
+            "divineanimemix_1_20230817.safetensors",
+            "nebulaeAnimeStyle_v20.safetensors",
+            "sd_xl_base_1.0_20230819.safetensors"
+          ],
+          "links": [
+            252,
+            253,
+            258
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Checkpoint Selector"
+      },
+      "widgets_values": [
+        "nebulaeAnimeStyle_v20.safetensors"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "String Literal",
+      "pos": [
+        -1395,
+        -566
+      ],
+      "size": {
+        "0": 291.3681335449219,
+        "1": 163.70703125
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            49,
+            251
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "nagative",
+      "properties": {
+        "Node name for S&R": "String Literal"
+      },
+      "widgets_values": [
+        "text, watermark"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "Cfg Literal",
+      "pos": [
+        -1395,
+        234
+      ],
+      "size": {
+        "0": 292.041748046875,
+        "1": 58
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "FLOAT",
+          "type": "FLOAT",
+          "links": [
+            123,
+            306
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Cfg Literal"
+      },
+      "widgets_values": [
+        8
+      ]
+    },
+    {
+      "id": 23,
+      "type": "Scheduler Selector",
+      "pos": [
+        -1393,
+        384
+      ],
+      "size": {
+        "0": 289.0316467285156,
+        "1": 58
+      },
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "scheduler",
+          "type": [
+            "normal",
+            "karras",
+            "exponential",
+            "sgm_uniform",
+            "simple",
+            "ddim_uniform"
+          ],
+          "links": [
+            202
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Scheduler Selector"
+      },
+      "widgets_values": [
+        "normal"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "Seed Generator",
+      "pos": [
+        -1389,
+        683
+      ],
+      "size": {
+        "0": 284.0215148925781,
+        "1": 156.37046813964844
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            102,
+            254,
+            292
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Seed Generator"
+      },
+      "widgets_values": [
+        499509209340317,
+        "randomize"
+      ]
+    },
+    {
+      "id": 58,
+      "type": "VAEDecode",
+      "pos": [
+        1415,
+        -106
+      ],
+      "size": {
+        "0": 210,
+        "1": 46
+      },
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 324
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 328
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            323
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 32,
+      "type": "PrimitiveNode",
+      "pos": [
+        -1395,
+        -798
+      ],
+      "size": {
+        "0": 283.9710388183594,
+        "1": 159.03341674804688
+      },
+      "flags": {
+        "collapsed": false
+      },
+      "order": 8,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            210,
+            250
+          ],
+          "slot_index": 0,
+          "widget": {
+            "name": "text",
+            "config": [
+              "STRING",
+              {
+                "multiline": true
+              }
+            ]
+          }
+        }
+      ],
+      "title": "positive",
+      "properties": {},
+      "widgets_values": [
+        "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,"
+      ]
+    },
+    {
+      "id": 75,
+      "type": "VAELoader",
+      "pos": [
+        -1391,
+        -927
+      ],
+      "size": {
+        "0": 287.684814453125,
+        "1": 58
+      },
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            328
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "sdxl_vae_20230819.safetensors"
+      ]
+    },
+    {
+      "id": 24,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -759,
+        -1058
+      ],
+      "size": {
+        "0": 315,
+        "1": 98
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "animeNaturalLanguage_v10_20230819.safetensors,divineanimemix_1_20230817.safetensors,sd_xl_base_1.0_20230819.safetensors",
+          "link": 253,
+          "widget": {
+            "name": "ckpt_name",
+            "config": [
+              [
+                "animeNaturalLanguage_v10_20230819.safetensors",
+                "divineanimemix_1_20230817.safetensors",
+                "sd_xl_base_1.0_20230819.safetensors"
+              ]
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            327
+          ],
+          "shape": 3,
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            326
+          ],
+          "shape": 3,
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [],
+          "shape": 3,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "animeNaturalLanguage_v10_20230819.safetensors"
+      ]
+    },
+    {
+      "id": 124,
+      "type": "Make Metadata String",
+      "pos": [
+        1309,
+        700
+      ],
+      "size": {
+        "0": 328.6750183105469,
+        "1": 74
+      },
+      "flags": {},
+      "order": 51,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "positive",
+          "type": "STRING",
+          "link": 250,
+          "widget": {
+            "name": "positive",
+            "config": [
+              "STRING",
+              {
+                "default": "unknown",
+                "multiline": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "negative",
+          "type": "STRING",
+          "link": 251,
+          "widget": {
+            "name": "negative",
+            "config": [
+              "STRING",
+              {
+                "default": "unknown",
+                "multiline": true
+              }
+            ]
+          }
+        },
+        {
+          "name": "other",
+          "type": "STRING",
+          "link": 331,
+          "widget": {
+            "name": "other",
+            "config": [
+              "STRING",
+              {
+                "default": "unknown",
+                "multiline": true
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            260
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Make Metadata String"
+      },
+      "widgets_values": [
+        " 1girl :d ^_^ alternate_hairstyle blunt_bangs bow bowtie chair chopsticks closed_eyes collared_shirt demon_girl demon_horns eating food halo high-waist_skirt holding holding_chopsticks horns long_hair long_sleeves looking_at_viewer omelet ponytail red_bow red_bowtie red_hair school_uniform shirt sidelocks simple_background skirt smile solo table tamagoyaki two-tone_background white_shirt",
+        "unknown",
+        "unknown"
+      ]
+    },
+    {
+      "id": 137,
+      "type": "JWStringConcat",
+      "pos": [
+        981,
+        763
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 272,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 284,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            285
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 147,
+      "type": "JWStringConcat",
+      "pos": [
+        987,
+        992
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 294,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 293,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            296
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 152,
+      "type": "JWStringConcat",
+      "pos": [
+        987,
+        1106
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 44,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 302,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 303,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            304
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 145,
+      "type": "JWStringConcat",
+      "pos": [
+        993,
+        1217
+      ],
+      "size": {
+        "0": 210,
+        "1": 118.34098815917969
+      },
+      "flags": {},
+      "order": 46,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 305,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 290,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            291
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 140,
+      "type": "JWStringConcat",
+      "pos": [
+        993,
+        1387
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 48,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 278,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 279,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            314
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 160,
+      "type": "JWStringConcat",
+      "pos": [
+        995,
+        1496
+      ],
+      "size": {
+        "0": 210,
+        "1": 54
+      },
+      "flags": {},
+      "order": 50,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "STRING",
+          "link": 320,
+          "widget": {
+            "name": "a",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "b",
+          "type": "STRING",
+          "link": 321,
+          "widget": {
+            "name": "b",
+            "config": [
+              "STRING",
+              {
+                "default": "",
+                "multiline": false
+              }
+            ]
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            331
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JWStringConcat"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 127,
+      "type": "Save Image w/Metadata(custom)",
+      "pos": [
+        1889,
+        396
+      ],
+      "size": {
+        "0": 243.60000610351562,
+        "1": 377.1103515625
+      },
+      "flags": {},
+      "order": 52,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 323
+        },
+        {
+          "name": "filename",
+          "type": "STRING",
+          "link": 255,
+          "widget": {
+            "name": "filename",
+            "config": [
+              "STRING",
+              {
+                "default": "ComfyUI_",
+                "multiline": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "comment",
+          "type": "STRING",
+          "link": 260,
+          "widget": {
+            "name": "comment",
+            "config": [
+              "STRING",
+              {
+                "default": "Version: ComfyUI",
+                "multiline": true
+              }
+            ]
+          }
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Save Image w/Metadata(custom)"
+      },
+      "widgets_values": [
+        "ComfyUI_",
+        "",
+        "png",
+        "Version: ComfyUI",
+        true,
+        100
+      ]
+    },
+    {
+      "id": 13,
+      "type": "Width/Height Literal",
+      "pos": [
+        -1393,
+        -316
+      ],
+      "size": {
+        "0": 290.37841796875,
+        "1": 58
+      },
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            298,
+            329
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Width",
+      "properties": {
+        "Node name for S&R": "Width/Height Literal"
+      },
+      "widgets_values": [
+        512
+      ]
+    },
+    {
+      "id": 14,
+      "type": "Width/Height Literal",
+      "pos": [
+        -1393,
+        -217
+      ],
+      "size": {
+        "0": 291.0517883300781,
+        "1": 58
+      },
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            299,
+            330
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "Height",
+      "properties": {
+        "Node name for S&R": "Width/Height Literal"
+      },
+      "widgets_values": [
+        512
+      ]
+    },
+    {
+      "id": 20,
+      "type": "Sampler Selector",
+      "pos": [
+        -1391,
+        81
+      ],
+      "size": {
+        "0": 287.0013122558594,
+        "1": 58
+      },
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "sampler_name",
+          "type": [
+            "euler",
+            "euler_ancestral",
+            "heun",
+            "dpm_2",
+            "dpm_2_ancestral",
+            "lms",
+            "dpm_fast",
+            "dpm_adaptive",
+            "dpmpp_2s_ancestral",
+            "dpmpp_sde",
+            "dpmpp_sde_gpu",
+            "dpmpp_2m",
+            "dpmpp_2m_sde",
+            "dpmpp_2m_sde_gpu",
+            "dpmpp_3m_sde",
+            "dpmpp_3m_sde_gpu",
+            "ddim",
+            "uni_pc",
+            "uni_pc_bh2"
+          ],
+          "links": [
+            205,
+            313
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Sampler Selector"
+      },
+      "widgets_values": [
+        "euler"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "Int Literal",
+      "pos": [
+        -1391,
+        -65
+      ],
+      "size": {
+        "0": 290.7353820800781,
+        "1": 58
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            113,
+            265
+          ],
+          "shape": 3,
+          "slot_index": 0
+        }
+      ],
+      "title": "step",
+      "properties": {
+        "Node name for S&R": "Int Literal"
+      },
+      "widgets_values": [
+        20
+      ]
+    }
+  ],
+  "links": [
+    [
+      49,
+      15,
+      0,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      102,
+      18,
+      0,
+      67,
+      0,
+      "*"
+    ],
+    [
+      103,
+      67,
+      0,
+      3,
+      4,
+      "INT"
+    ],
+    [
+      113,
+      19,
+      0,
+      69,
+      0,
+      "*"
+    ],
+    [
+      123,
+      21,
+      0,
+      71,
+      0,
+      "*"
+    ],
+    [
+      150,
+      33,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      151,
+      33,
+      0,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      173,
+      7,
+      0,
+      88,
+      0,
+      "*"
+    ],
+    [
+      174,
+      88,
+      0,
+      3,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      180,
+      90,
+      0,
+      3,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      189,
+      5,
+      0,
+      94,
+      0,
+      "*"
+    ],
+    [
+      190,
+      94,
+      0,
+      3,
+      3,
+      "LATENT"
+    ],
+    [
+      193,
+      69,
+      0,
+      3,
+      5,
+      "INT"
+    ],
+    [
+      194,
+      71,
+      0,
+      3,
+      7,
+      "FLOAT"
+    ],
+    [
+      202,
+      23,
+      0,
+      3,
+      8,
+      "normal,karras,exponential,sgm_uniform,simple,ddim_uniform"
+    ],
+    [
+      205,
+      20,
+      0,
+      3,
+      6,
+      "euler,euler_ancestral,heun,dpm_2,dpm_2_ancestral,lms,dpm_fast,dpm_adaptive,dpmpp_2s_ancestral,dpmpp_sde,dpmpp_sde_gpu,dpmpp_2m,dpmpp_2m_sde,dpmpp_2m_sde_gpu,dpmpp_3m_sde,dpmpp_3m_sde_gpu,ddim,uni_pc,uni_pc_bh2"
+    ],
+    [
+      210,
+      32,
+      0,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      214,
+      6,
+      0,
+      90,
+      0,
+      "*"
+    ],
+    [
+      250,
+      32,
+      0,
+      124,
+      0,
+      "STRING"
+    ],
+    [
+      251,
+      15,
+      0,
+      124,
+      1,
+      "STRING"
+    ],
+    [
+      252,
+      126,
+      0,
+      125,
+      0,
+      "animeNaturalLanguage_v10_20230819.safetensors,divineanimemix_1_20230817.safetensors,nebulaeAnimeStyle_v20.safetensors,sd_xl_base_1.0_20230819.safetensors"
+    ],
+    [
+      253,
+      126,
+      0,
+      24,
+      0,
+      "animeNaturalLanguage_v10_20230819.safetensors,divineanimemix_1_20230817.safetensors,sd_xl_base_1.0_20230819.safetensors"
+    ],
+    [
+      254,
+      18,
+      0,
+      125,
+      1,
+      "INT"
+    ],
+    [
+      255,
+      125,
+      0,
+      127,
+      1,
+      "STRING"
+    ],
+    [
+      258,
+      126,
+      0,
+      128,
+      0,
+      "animeNaturalLanguage_v10_20230819.safetensors,divineanimemix_1_20230817.safetensors,nebulaeAnimeStyle_v20.safetensors,sd_xl_base_1.0_20230819.safetensors"
+    ],
+    [
+      260,
+      124,
+      0,
+      127,
+      2,
+      "STRING"
+    ],
+    [
+      261,
+      128,
+      1,
+      129,
+      0,
+      "STRING"
+    ],
+    [
+      265,
+      19,
+      0,
+      131,
+      0,
+      "INT"
+    ],
+    [
+      269,
+      134,
+      0,
+      135,
+      0,
+      "STRING"
+    ],
+    [
+      272,
+      136,
+      0,
+      137,
+      0,
+      "STRING"
+    ],
+    [
+      275,
+      128,
+      0,
+      138,
+      0,
+      "STRING"
+    ],
+    [
+      278,
+      139,
+      0,
+      140,
+      0,
+      "STRING"
+    ],
+    [
+      279,
+      138,
+      0,
+      140,
+      1,
+      "STRING"
+    ],
+    [
+      284,
+      135,
+      0,
+      137,
+      1,
+      "STRING"
+    ],
+    [
+      285,
+      137,
+      0,
+      142,
+      0,
+      "STRING"
+    ],
+    [
+      286,
+      142,
+      0,
+      143,
+      0,
+      "STRING"
+    ],
+    [
+      288,
+      143,
+      0,
+      144,
+      0,
+      "STRING"
+    ],
+    [
+      290,
+      129,
+      0,
+      145,
+      1,
+      "STRING"
+    ],
+    [
+      291,
+      145,
+      0,
+      139,
+      0,
+      "STRING"
+    ],
+    [
+      292,
+      18,
+      0,
+      146,
+      0,
+      "INT"
+    ],
+    [
+      293,
+      146,
+      0,
+      147,
+      1,
+      "STRING"
+    ],
+    [
+      294,
+      144,
+      0,
+      147,
+      0,
+      "STRING"
+    ],
+    [
+      296,
+      147,
+      0,
+      148,
+      0,
+      "STRING"
+    ],
+    [
+      298,
+      13,
+      0,
+      149,
+      0,
+      "INT"
+    ],
+    [
+      299,
+      14,
+      0,
+      150,
+      0,
+      "INT"
+    ],
+    [
+      300,
+      149,
+      0,
+      151,
+      0,
+      "STRING"
+    ],
+    [
+      301,
+      150,
+      0,
+      151,
+      1,
+      "STRING"
+    ],
+    [
+      302,
+      148,
+      0,
+      152,
+      0,
+      "STRING"
+    ],
+    [
+      303,
+      151,
+      0,
+      152,
+      1,
+      "STRING"
+    ],
+    [
+      304,
+      152,
+      0,
+      153,
+      0,
+      "STRING"
+    ],
+    [
+      305,
+      153,
+      0,
+      145,
+      0,
+      "STRING"
+    ],
+    [
+      306,
+      21,
+      0,
+      154,
+      0,
+      "FLOAT"
+    ],
+    [
+      307,
+      154,
+      0,
+      143,
+      1,
+      "STRING"
+    ],
+    [
+      313,
+      20,
+      0,
+      134,
+      0,
+      "euler,euler_ancestral,heun,dpm_2,dpm_2_ancestral,lms,dpm_fast,dpm_adaptive,dpmpp_2s_ancestral,dpmpp_sde,dpmpp_sde_gpu,dpmpp_2m,dpmpp_2m_sde,dpmpp_2m_sde_gpu,dpmpp_3m_sde,dpmpp_3m_sde_gpu,ddim,uni_pc,uni_pc_bh2"
+    ],
+    [
+      314,
+      140,
+      0,
+      157,
+      0,
+      "STRING"
+    ],
+    [
+      317,
+      131,
+      0,
+      136,
+      0,
+      "STRING"
+    ],
+    [
+      320,
+      157,
+      0,
+      160,
+      0,
+      "STRING"
+    ],
+    [
+      321,
+      159,
+      0,
+      160,
+      1,
+      "STRING"
+    ],
+    [
+      323,
+      58,
+      0,
+      127,
+      0,
+      "IMAGE"
+    ],
+    [
+      324,
+      3,
+      0,
+      58,
+      0,
+      "LATENT"
+    ],
+    [
+      326,
+      24,
+      1,
+      33,
+      0,
+      "*"
+    ],
+    [
+      327,
+      24,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      328,
+      75,
+      0,
+      58,
+      1,
+      "VAE"
+    ],
+    [
+      329,
+      13,
+      0,
+      5,
+      0,
+      "INT"
+    ],
+    [
+      330,
+      14,
+      0,
+      5,
+      1,
+      "INT"
+    ],
+    [
+      331,
+      160,
+      0,
+      124,
+      2,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

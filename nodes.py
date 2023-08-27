@@ -265,10 +265,183 @@ class ImageSaveWithMetadata:
             img_count += 1
         return paths
 
+class ImageSaveWithMetadataCustom:
+    def __init__(self):
+        self.output_dir = folder_paths.output_directory
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "images": ("IMAGE", ),
+                "filename": ("STRING", {"default": f'ComfyUI_', "multiline": False}),
+                "extra_path": ("STRING", {"default": '', "multiline": False}),
+                "extension": (['png', 'jpeg', 'webp'],),
+            },
+            "optional": {
+                "comment": ("STRING", {"default": "Version: ComfyUI", "multiline": True}),
+                "lossless_webp": ("BOOLEAN", {"default": True}),
+                "quality_jpeg_or_webp": ("INT", {"default": 100, "min": 1, "max": 100}),
+            },
+            "hidden": {
+                "prompt": "PROMPT",
+                "extra_pnginfo": "EXTRA_PNGINFO"
+            },
+        }
+
+    RETURN_TYPES = ()
+    FUNCTION = "save_files"
+
+    OUTPUT_NODE = True
+
+    CATEGORY = "ImageSaverTools"
+
+    def save_files(self, images, filename, extra_path, extension, comment, quality_jpeg_or_webp, lossless_webp, prompt=None, extra_pnginfo=None):
+        output_path = os.path.join(self.output_dir, extra_path)
+
+        if output_path.strip() != '':
+            if not os.path.exists(output_path.strip()):
+                print(f'The path `{output_path.strip()}` specified doesn\'t exist! Creating directory.')
+                os.makedirs(output_path, exist_ok=True)    
+
+        filenames = self.save_images(images, output_path, filename, comment, extension, quality_jpeg_or_webp, lossless_webp, prompt, extra_pnginfo)
+
+        subfolder = os.path.normpath(extra_path)
+        return {"ui": {"images": map(lambda filename: {"filename": filename, "subfolder": subfolder if subfolder != '.' else '', "type": 'output'}, filenames)}}
+
+    def save_images(self, images, output_path, filename_prefix, comment, extension, quality_jpeg_or_webp, lossless_webp, prompt=None, extra_pnginfo=None) -> list[str]:
+        img_count = 1
+        paths = list()
+        for image in images:
+            i = 255. * image.cpu().numpy()
+            img = Image.fromarray(np.clip(i, 0, 255).astype(np.uint8))
+            if images.size()[0] > 1:
+                filename_prefix += "_{:02d}".format(img_count)
+
+            if extension == 'png':
+                metadata = PngInfo()
+                metadata.add_text("parameters", comment)
+
+                if prompt is not None:
+                    metadata.add_text("prompt", json.dumps(prompt))
+                if extra_pnginfo is not None:
+                    for x in extra_pnginfo:
+                        metadata.add_text(x, json.dumps(extra_pnginfo[x]))
+
+                filename = f"{filename_prefix}.png"
+                img.save(os.path.join(output_path, filename), pnginfo=metadata, optimize=True)
+            else:
+                filename = f"{filename_prefix}.{extension}"
+                file = os.path.join(output_path, filename)
+                img.save(file, optimize=True, quality=quality_jpeg_or_webp, lossless=lossless_webp)
+                exif_bytes = piexif.dump({
+                    "Exif": {
+                        piexif.ExifIFD.UserComment: piexif.helper.UserComment.dump(comment, encoding="unicode")
+                    },
+                })
+                piexif.insert(exif_bytes, file)
+
+            paths.append(filename)
+            img_count += 1
+        return paths
+
+class MakeFilename:
+    CATEGORY = "ImageSaverTools/utils"
+
+    RETURN_TYPES = (
+        "STRING",
+    )
+    RETURN_NAMES = (
+        "formatted_filename(string)",
+    )
+    FUNCTION = "makeFilename"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "filename_format": ("STRING", {"default": f'%time_%seed', "multiline": False}),
+            },
+            "optional": {
+                "seed_value": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "modelname": (folder_paths.get_filename_list("checkpoints"),),
+                "counter": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff }),
+                "time_format": ("STRING", {"default": "%Y-%m-%d-%H%M%S", "multiline": False}),
+            },
+        }
+
+    def makeFilename(self, filename_format, seed_value, modelname, counter, time_format):
+        filename = make_filename(filename_format, seed_value, modelname, counter, time_format)
+        return (filename,)
+
+class CheckpointToString:
+    CATEGORY = 'ImageSaverTools/utils'
+    RETURN_TYPES = (
+        "STRING",
+        "STRING",
+    )
+    RETURN_NAMES = (
+        "model_name(string)",
+        "model_hash(string)",
+    )
+    FUNCTION = "get_names"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"ckpt_name": (folder_paths.get_filename_list("checkpoints"), ),}}
+
+    def get_names(self, ckpt_name):
+        basemodelname = parse_name(ckpt_name)
+        ckpt_path = folder_paths.get_full_path("checkpoints", ckpt_name)
+        modelhash = calculate_sha256(ckpt_path)[:10]
+        return (str(basemodelname), str(modelhash),)
+
+class SamplerToString:
+    CATEGORY = 'ImageSaverTools/utils'
+    RETURN_TYPES = (
+        "STRING",
+    )
+    RETURN_NAMES = (
+        "sampler(string)",
+    )
+    FUNCTION = "get_names"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"sampler_name": (comfy.samplers.KSampler.SAMPLERS,)}}
+
+    def get_names(self, sampler_name):
+        return (str(sampler_name),)
+    
+class MakeMetadata:
+    CATEGORY = 'ImageSaverTools/utils'
+    RETURN_TYPES = (
+        "STRING",
+    )
+    RETURN_NAMES = (
+        "metadata(string)",
+    )
+    FUNCTION = "makeMetadata"
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {
+            "positive": ("STRING", {"default": 'unknown', "multiline": True}),
+            "negative": ("STRING", {"default": 'unknown', "multiline": True}),
+            "other": ("STRING", {"default": "Version: ComfyUI", "multiline": True}),
+        }}
+
+    def makeMetadata(self, positive, negative, other):
+        positive = f"{handle_whitespace(positive)}\n"
+        negative = f"Negative prompt: {handle_whitespace(negative)}\n"
+        other = f"{handle_whitespace(other)}"
+        metadatastring = f"{positive}{negative}{other}"
+        return (metadatastring, )
 
 NODE_CLASS_MAPPINGS = {
     "Checkpoint Selector": CheckpointSelector,
     "Save Image w/Metadata": ImageSaveWithMetadata,
+    "Save Image w/Metadata(custom)": ImageSaveWithMetadataCustom,
     "Sampler Selector": SamplerSelector,
     "Scheduler Selector": SchedulerSelector,
     "Seed Generator": SeedGenerator,
@@ -276,4 +449,8 @@ NODE_CLASS_MAPPINGS = {
     "Width/Height Literal": SizeLiteral,
     "Cfg Literal": CfgLiteral,
     "Int Literal": IntLiteral,
+    "Make Filename String": MakeFilename,
+    "Make Metadata String": MakeMetadata,
+    "Checkpoint To String": CheckpointToString,
+    "Sampler To String": SamplerToString,
 }
