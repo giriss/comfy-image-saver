@@ -51,12 +51,20 @@ def make_pathname(
         modelname,
         counter,
         time_format,
+        sampler_name,
+        steps,
+        cfg,
+        scheduler,
 ):
     filename = filename.replace("%date", get_timestamp("%Y-%m-%d"))
     filename = filename.replace("%time", get_timestamp(time_format))
     filename = filename.replace("%model", modelname)
     filename = filename.replace("%seed", str(seed))
     filename = filename.replace("%counter", str(counter))
+    filename = filename.replace("%sampler_name", sampler_name)
+    filename = filename.replace("%steps", str(steps))
+    filename = filename.replace("%cfg", str(cfg))
+    filename = filename.replace("%scheduler", scheduler)
     return filename
 
 
@@ -66,6 +74,10 @@ def make_filename(
         modelname,
         counter,
         time_format,
+        sampler_name,
+        steps,
+        cfg,
+        scheduler,
 ):
     filename = make_pathname(
         filename,
@@ -73,6 +85,10 @@ def make_filename(
         modelname,
         counter,
         time_format,
+        sampler_name,
+        steps,
+        cfg,
+        scheduler,
     )
 
     return get_timestamp(time_format) if filename == "" else filename
@@ -256,6 +272,10 @@ class ImageSaveWithMetadata:
             modelname,
             counter,
             time_format,
+            sampler_name,
+            steps,
+            cfg,
+            scheduler,
         )
 
         path = make_pathname(
@@ -264,6 +284,10 @@ class ImageSaveWithMetadata:
             modelname,
             counter,
             time_format,
+            sampler_name,
+            steps,
+            cfg,
+            scheduler,
         )
 
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
