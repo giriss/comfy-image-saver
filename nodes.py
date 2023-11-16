@@ -45,17 +45,55 @@ def get_timestamp(time_format):
     return timestamp
 
 
-def make_pathname(filename, seed, modelname, counter, time_format):
+def make_pathname(
+        filename,
+        seed,
+        modelname,
+        counter,
+        time_format,
+        sampler_name,
+        steps,
+        cfg,
+        scheduler,
+        basemodelname,
+):
     filename = filename.replace("%date", get_timestamp("%Y-%m-%d"))
     filename = filename.replace("%time", get_timestamp(time_format))
     filename = filename.replace("%model", modelname)
     filename = filename.replace("%seed", str(seed))
     filename = filename.replace("%counter", str(counter))
+    filename = filename.replace("%sampler_name", sampler_name)
+    filename = filename.replace("%steps", str(steps))
+    filename = filename.replace("%cfg", str(cfg))
+    filename = filename.replace("%scheduler", scheduler)
+    filename = filename.replace("%basemodelname", basemodelname)
     return filename
 
 
-def make_filename(filename, seed, modelname, counter, time_format):
-    filename = make_pathname(filename, seed, modelname, counter, time_format)
+def make_filename(
+        filename,
+        seed,
+        modelname,
+        counter,
+        time_format,
+        sampler_name,
+        steps,
+        cfg,
+        scheduler,
+        basemodelname,
+):
+    filename = make_pathname(
+        filename,
+        seed,
+        modelname,
+        counter,
+        time_format,
+        sampler_name,
+        steps,
+        cfg,
+        scheduler,
+        basemodelname,
+    )
 
     return get_timestamp(time_format) if filename == "" else filename
 
@@ -209,12 +247,58 @@ class ImageSaveWithMetadata:
 
     CATEGORY = "ImageSaverTools"
 
-    def save_files(self, images, seed_value, steps, cfg, sampler_name, scheduler, positive, negative, modelname, quality_jpeg_or_webp,
-                   lossless_webp, width, height, counter, filename, path, extension, time_format, prompt=None, extra_pnginfo=None):
-        filename = make_filename(filename, seed_value, modelname, counter, time_format)
-        path = make_pathname(path, seed_value, modelname, counter, time_format)
-        ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
+    def save_files(
+            self,
+            images,
+            seed_value,
+            steps,
+            cfg,
+            sampler_name,
+            scheduler,
+            positive,
+            negative,
+            modelname,
+            quality_jpeg_or_webp,
+            lossless_webp,
+            width,
+            height,
+            counter,
+            filename,
+            path,
+            extension,
+            time_format,
+            prompt=None,
+            extra_pnginfo=None,
+    ):
         basemodelname = parse_name(modelname)
+
+        filename = make_filename(
+            filename,
+            seed_value,
+            modelname,
+            counter,
+            time_format,
+            sampler_name,
+            steps,
+            cfg,
+            scheduler,
+            basemodelname,
+        )
+
+        path = make_pathname(
+            path,
+            seed_value,
+            modelname,
+            counter,
+            time_format,
+            sampler_name,
+            steps,
+            cfg,
+            scheduler,
+            basemodelname,
+        )
+
+        ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
         modelhash = calculate_sha256(ckpt_path)[:10]
         comment = f"{handle_whitespace(positive)}\nNegative prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}{f'_{scheduler}' if scheduler != 'normal' else ''}, CFG Scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI"
         output_path = os.path.join(self.output_dir, path)
