@@ -25,3 +25,23 @@ If you don't have *ComfyUI-Manager*, then:
 
 ![Screenshot 2023-08-17 at 13 15 18](https://github.com/giriss/comfy-image-saver/assets/2811408/785f2475-8f9a-45c9-9d38-855161a98495)
 
+## Customization of file/folder names
+
+You can use following placeholders:
+
+- `%date`
+- `%seed`
+- `%counter`
+- `%sampler_name`
+- `%steps`
+- `%cfg`
+- `%scheduler`
+- `%time` *– format taken from `time_format`*
+- `%model` *– full name of model file*
+- `%basemodelname` *– name of model (without file extension)*
+
+Example:
+
+| `filename` value | Result file name |
+| --- | --- |
+| `%time-%basemodelname-%cfg-%steps-%sampler_name-%scheduler-%seed` | `2023-11-16-131331-Anything-v4.5-pruned-mergedVae-7.0-25-dpm_2-normal-1_01.png` |
