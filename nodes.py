@@ -55,6 +55,7 @@ def make_pathname(
         steps,
         cfg,
         scheduler,
+        basemodelname,
 ):
     filename = filename.replace("%date", get_timestamp("%Y-%m-%d"))
     filename = filename.replace("%time", get_timestamp(time_format))
@@ -65,6 +66,7 @@ def make_pathname(
     filename = filename.replace("%steps", str(steps))
     filename = filename.replace("%cfg", str(cfg))
     filename = filename.replace("%scheduler", scheduler)
+    filename = filename.replace("%basemodelname", basemodelname)
     return filename
 
 
@@ -78,6 +80,7 @@ def make_filename(
         steps,
         cfg,
         scheduler,
+        basemodelname,
 ):
     filename = make_pathname(
         filename,
@@ -89,6 +92,7 @@ def make_filename(
         steps,
         cfg,
         scheduler,
+        basemodelname,
     )
 
     return get_timestamp(time_format) if filename == "" else filename
@@ -266,6 +270,8 @@ class ImageSaveWithMetadata:
             prompt=None,
             extra_pnginfo=None,
     ):
+        basemodelname = parse_name(modelname)
+
         filename = make_filename(
             filename,
             seed_value,
@@ -276,6 +282,7 @@ class ImageSaveWithMetadata:
             steps,
             cfg,
             scheduler,
+            basemodelname,
         )
 
         path = make_pathname(
@@ -288,10 +295,10 @@ class ImageSaveWithMetadata:
             steps,
             cfg,
             scheduler,
+            basemodelname,
         )
 
         ckpt_path = folder_paths.get_full_path("checkpoints", modelname)
-        basemodelname = parse_name(modelname)
         modelhash = calculate_sha256(ckpt_path)[:10]
         comment = f"{handle_whitespace(positive)}\nNegative prompt: {handle_whitespace(negative)}\nSteps: {steps}, Sampler: {sampler_name}{f'_{scheduler}' if scheduler != 'normal' else ''}, CFG Scale: {cfg}, Seed: {seed_value}, Size: {width}x{height}, Model hash: {modelhash}, Model: {basemodelname}, Version: ComfyUI"
         output_path = os.path.join(self.output_dir, path)
